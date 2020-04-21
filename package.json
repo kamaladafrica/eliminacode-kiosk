@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
+  "name": "eliminacode-conadcitycapena-kiosk",
+  "productName": "Eliminacode Conad City Capena",
   "version": "1.1.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "Kiosk eliminacode Conad City Capena",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
@@ -54,6 +54,9 @@
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
+    "extraFiles": [
+      "resources/"
+    ],
     "files": [
       "dist/",
       "node_modules/",
@@ -246,7 +249,7 @@
     "node-sass": "^4.13.1",
     "opencollective-postinstall": "^2.0.2",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.4",
     "react-test-renderer": "^16.12.0",
     "redux-logger": "^3.0.6",
     "rimraf": "^3.0.0",
@@ -261,6 +264,8 @@
     "testcafe": "^1.8.0",
     "testcafe-browser-provider-electron": "^0.0.14",
     "testcafe-react-selectors": "^4.0.0",
+    "tslint": "^6.1.1",
+    "tslint-react": "^4.2.0",
     "typed-css-modules-webpack-plugin": "^0.1.2",
     "typescript": "^3.7.5",
     "url-loader": "^3.0.0",
@@ -305,7 +310,12 @@
   "prettier": {
     "overrides": [
       {
-        "files": [".prettierrc", ".babelrc", ".eslintrc", ".stylelintrc"],
+        "files": [
+          ".prettierrc",
+          ".babelrc",
+          ".eslintrc",
+          ".stylelintrc"
+        ],
         "options": {
           "parser": "json"
         }
@@ -314,10 +324,15 @@
     "singleQuote": true
   },
   "stylelint": {
-    "extends": ["stylelint-config-standard", "stylelint-config-prettier"]
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ]
   },
   "renovate": {
-    "extends": ["bliss"]
+    "extends": [
+      "bliss"
+    ]
   },
   "husky": {
     "hooks": {

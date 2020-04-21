@@ -8,11 +8,12 @@
  * When running `yarn build` or `yarn build-main`, this file is compiled to
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
-import path from 'path';
 import { app, BrowserWindow } from 'electron';
-import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { autoUpdater } from 'electron-updater';
+import path from 'path';
 import MenuBuilder from './menu';
+import { setupPrinterMain } from './utils/printer';
 
 export default class AppUpdater {
   constructor() {
@@ -42,7 +43,7 @@ const installExtensions = async () => {
   const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
   return Promise.all(
-    extensions.map(name => installer.default(installer[name], forceDownload))
+    extensions.map((name) => installer.default(installer[name], forceDownload))
   ).catch(console.log);
 };
 
@@ -61,11 +62,11 @@ const createWindow = async () => {
     webPreferences:
       process.env.NODE_ENV === 'development' || process.env.E2E_BUILD === 'true'
         ? {
-            nodeIntegration: true
+            nodeIntegration: true,
           }
         : {
-            preload: path.join(__dirname, 'dist/renderer.prod.js')
-          }
+            preload: path.join(__dirname, 'dist/renderer.prod.js'),
+          },
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -81,6 +82,8 @@ const createWindow = async () => {
     } else {
       mainWindow.show();
       mainWindow.focus();
+      mainWindow.setKiosk(true);
+      mainWindow.setMenuBarVisibility(false);
     }
   });
 
@@ -91,9 +94,7 @@ const createWindow = async () => {
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
-  // Remove this if your app does not use auto updates
-  // eslint-disable-next-line
-  new AppUpdater();
+  setupPrinterMain();
 };
 
 /**

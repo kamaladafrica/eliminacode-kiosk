@@ -1,69 +1,68 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import logo from '../../resources/logo.svg';
 import styles from './Counter.css';
-import routes from '../constants/routes.json';
+import TextAttesa from './TextAttesa';
 
 type Props = {
-  increment: () => void;
-  incrementIfOdd: () => void;
-  incrementAsync: () => void;
-  decrement: () => void;
-  counter: number;
+  newTag: () => void;
+  progressivo: number;
+  fila: number;
+  tempoStimato: number;
+  disableTime?: number;
 };
 
-export default function Counter(props: Props) {
-  const {
-    increment,
-    incrementIfOdd,
-    incrementAsync,
-    decrement,
-    counter
-  } = props;
+const Counter = (props: Props) => {
+  const { progressivo, fila, tempoStimato, newTag, disableTime } = props;
+
+  const [disabled, setDisabled] = useState(false);
+
+  const onClick = () => {
+    newTag();
+    setDisabled(true);
+    setTimeout(() => setDisabled(false), disableTime);
+  };
 
   return (
-    <div>
-      <div className={styles.backButton} data-tid="backButton">
-        <Link to={routes.HOME}>
-          <i className="fa fa-arrow-left fa-3x" />
-        </Link>
-      </div>
-      <div className={`counter ${styles.counter}`} data-tid="counter">
-        {counter}
-      </div>
-      <div className={styles.btnGroup}>
-        <button
-          className={styles.btn}
-          onClick={increment}
-          data-tclass="btn"
-          type="button"
-        >
-          <i className="fa fa-plus" />
-        </button>
-        <button
-          className={styles.btn}
-          onClick={decrement}
-          data-tclass="btn"
-          type="button"
-        >
-          <i className="fa fa-minus" />
-        </button>
-        <button
-          className={styles.btn}
-          onClick={incrementIfOdd}
-          data-tclass="btn"
-          type="button"
-        >
-          odd
-        </button>
-        <button
-          className={styles.btn}
-          onClick={() => incrementAsync()}
-          data-tclass="btn"
-          type="button"
-        >
-          async
-        </button>
+    <div className="d-flex flex-column justify-content-center align-items-center h-100">
+      <div
+        className={`${styles.card} card text-center shadow-lg rounded-lg border-0`}
+      >
+        <h1 className="card-header p-4 text-primary font-weight-bold">
+          <img className="align-bottom" src={logo} alt="" /> City Capena
+        </h1>
+        <div className="card-body d-flex flex-column justify-content-between align-items-center">
+          <h1 className="card-title font-weight-bold">
+            <span className={styles['current-number']}>{progressivo}</span>
+          </h1>
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={onClick}
+            tabIndex={-1}
+            className={`${styles['new-number']} btn btn-primary btn-lg w-50 h-25 mt-0 mb-5 text-nowrap`}
+          >
+            {disabled && (
+              <span
+                className={`${styles.spinner} spinner-border align-baseline mr-3`}
+                role="status"
+                aria-hidden="true"
+              />
+            )}
+            Nuovo numero
+          </button>
+        </div>
+        <div className={`${styles['card-footer']} card-footer text-muted`}>
+          Hai {fila} persone davanti
+          <br />
+          {tempoStimato > 0 && <TextAttesa minuti={tempoStimato} />}
+        </div>
       </div>
     </div>
   );
-}
+};
+
+Counter.defaultProps = {
+  disableTime: 2000,
+} as Pick<Props, 'disableTime'>;
+
+export default Counter;
