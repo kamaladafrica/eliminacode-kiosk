@@ -48,6 +48,7 @@ const toStats = (json: any): Stats => ({
   tempoStimato: json.tempoStimato,
   tempoLimite: new Date(json.tempoLimite),
   progressivo: json.progressivo,
+  lastBruciato: json.lastBruciato,
 });
 
 export interface Tag {
@@ -62,6 +63,7 @@ export interface Stats {
   tempoStimato: number;
   tempoLimite: Date;
   progressivo: number;
+  lastBruciato: number;
 }
 
 export interface TagCheck {

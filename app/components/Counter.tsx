@@ -8,11 +8,12 @@ type Props = {
   progressivo: number;
   fila: number;
   tempoStimato: number;
+  last: number;
   disableTime?: number;
 };
 
 const Counter = (props: Props) => {
-  const { progressivo, fila, tempoStimato, newTag, disableTime } = props;
+  const { progressivo, fila, tempoStimato, newTag, disableTime, last } = props;
 
   const [disabled, setDisabled] = useState(false);
 
@@ -51,10 +52,20 @@ const Counter = (props: Props) => {
             Nuovo numero
           </button>
         </div>
-        <div className={`${styles['card-footer']} card-footer text-muted`}>
-          Hai {fila} persone davanti
-          <br />
-          {tempoStimato > 0 && <TextAttesa minuti={tempoStimato} />}
+        <div
+          className={`${styles['card-footer']} card-footer text-muted d-flex justify-content-between align-items-end`}
+        >
+          <div>
+            <span>Hai {fila} persone davanti</span>
+            {tempoStimato + 1 > 0 && <br />}
+            {tempoStimato + 1 > 0 && <TextAttesa minuti={tempoStimato} />}
+          </div>
+          <div>
+            Stiamo servendo il numero{' '}
+            <span className={`${styles['text-lg']} font-weight-bold`}>
+              {last}
+            </span>
+          </div>
         </div>
       </div>
     </div>

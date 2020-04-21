@@ -23,3 +23,8 @@ button.new-number {
   width: 3.5rem;
   height: 3.5rem;
 }
+
+.text-lg {
+  font-size: 2rem;
+  padding-left: 0.5rem;
+}

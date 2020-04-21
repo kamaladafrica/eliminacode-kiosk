@@ -14,6 +14,7 @@ export type State = {
   tempoLimite: Date;
   loaded: boolean;
   progressivo: number;
+  lastBruciato: number;
 };
 
 const EMPTY_STATE: State = {
@@ -24,6 +25,7 @@ const EMPTY_STATE: State = {
   tempoMedio: 0,
   tempoStimato: 0,
   progressivo: 1,
+  lastBruciato: 0,
 };
 
 const toState = ({
@@ -31,6 +33,7 @@ const toState = ({
   tempoStimato,
   tempoLimite,
   progressivo,
+  lastBruciato,
 }: api.Stats): State => ({
   progressivo,
   posizione: fila.length,
@@ -39,6 +42,7 @@ const toState = ({
   tempoLimite,
   fila,
   loaded: true,
+  lastBruciato,
 });
 
 type PrintTagAction = (progressivo: number, qrCodeImageUrl: string) => void;
@@ -62,10 +66,10 @@ export const useTag = (printTag: PrintTagAction): TagHookReturn => {
   const newTag = useCallback(async () => {
     try {
       const tag = await api.newTag();
-      const url = tag && (await api.qrCodeImageUrl(tag.key));
-      printTag(tag.progressivo, url);
+      printTag(tag.progressivo, tag.qrCodeImageUrl);
       fetchStats();
     } catch (error) {
+      console.log(error);
       // clearTagState();
     }
   }, [state]);
