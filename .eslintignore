@@ -1,3 +1,6 @@
+#3rd party
+app/bootstrap.min.css
+
 # Logs
 logs
 *.log
