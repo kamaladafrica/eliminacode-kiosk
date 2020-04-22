@@ -29,7 +29,7 @@ describe('actions', () => {
 
   // There's no nice way to test this at the moment...
   it('should incrementAsync', () => {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const fn = actions.incrementAsync(1);
       expect(fn).toBeInstanceOf(Function);
       const dispatch = spy();

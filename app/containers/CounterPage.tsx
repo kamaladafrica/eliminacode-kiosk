@@ -3,7 +3,6 @@ import Counter from '../components/Counter';
 import { useTag } from '../hooks/useTag';
 import { printTag } from '../utils/printer';
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 export default () => {
   const [state, newTag] = useTag(
     (progressivo: number, qrCodeImageUrl: string) => {
