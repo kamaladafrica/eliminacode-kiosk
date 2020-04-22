@@ -15,6 +15,7 @@ export type State = {
   loaded: boolean;
   progressivo: number;
   lastBruciato: number;
+  prossimo: number;
 };
 
 const EMPTY_STATE: State = {
@@ -26,6 +27,7 @@ const EMPTY_STATE: State = {
   tempoStimato: 0,
   progressivo: 1,
   lastBruciato: 0,
+  prossimo: 1,
 };
 
 const toState = ({
@@ -43,6 +45,7 @@ const toState = ({
   fila,
   loaded: true,
   lastBruciato,
+  prossimo: fila[0] ?? progressivo,
 });
 
 type PrintTagAction = (progressivo: number, qrCodeImageUrl: string) => void;

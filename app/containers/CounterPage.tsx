@@ -19,6 +19,7 @@ export default () => {
       newTag={newTag}
       progressivo={state.progressivo}
       last={state.lastBruciato}
+      next={state.prossimo}
       tempoStimato={state.tempoStimato}
     />
   );

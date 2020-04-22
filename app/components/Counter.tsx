@@ -9,11 +9,20 @@ type Props = {
   fila: number;
   tempoStimato: number;
   last: number;
+  next: number;
   disableTime?: number;
 };
 
 const Counter = (props: Props) => {
-  const { progressivo, fila, tempoStimato, newTag, disableTime, last } = props;
+  const {
+    progressivo,
+    fila,
+    tempoStimato,
+    newTag,
+    disableTime,
+    last,
+    next,
+  } = props;
 
   const [disabled, setDisabled] = useState(false);
 
@@ -56,15 +65,26 @@ const Counter = (props: Props) => {
           className={`${styles['card-footer']} card-footer text-muted d-flex justify-content-between align-items-end`}
         >
           <div>
-            <span>Hai {fila} persone davanti</span>
-            {tempoStimato + 1 > 0 && <br />}
-            {tempoStimato + 1 > 0 && <TextAttesa minuti={tempoStimato} />}
+            <div>Hai {fila} persone davanti</div>
+            {tempoStimato + 1 > 0 && (
+              <div>
+                <TextAttesa minuti={tempoStimato} />
+              </div>
+            )}
           </div>
-          <div>
-            Stiamo servendo il numero{' '}
-            <span className={`${styles['text-lg']} font-weight-bold`}>
-              {last}
-            </span>
+          <div className="text-right">
+            <div className="">
+              Stiamo servendo il numero{' '}
+              <span className={`${styles['text-lg']} font-weight-bold`}>
+                {last}
+              </span>
+            </div>
+            <div>
+              Poi toccher&agrave; al numero{' '}
+              <span className={`${styles['text-lg']} font-weight-bold`}>
+                {next}
+              </span>
+            </div>
           </div>
         </div>
       </div>
