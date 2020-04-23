@@ -60,31 +60,26 @@ const Counter = (props: Props) => {
             )}
             Prendi numero
           </button>
-
-          <div className="d-flex justify-content-between align-items-end w-100 text-muted">
-            <h2>
-              Stiamo servendo il numero{' '}
-              <span className={`${styles['text-lg']} font-weight-bold`}>
-                {last}
-              </span>
-            </h2>
-            <h2>
-              Poi serviremo il numero{' '}
-              <span className={`${styles['text-lg']} font-weight-bold`}>
-                {next}
-              </span>
-            </h2>
-          </div>
         </div>
-        <div
-          className={`${styles['card-footer']} card-footer text-muted d-flex flex-column align-items-center`}
-        >
-          <div>Hai {fila} persone davanti</div>
-          {tempoStimato > 0 && (
+        <div className={`${styles['card-footer']} card-footer text-muted`}>
+          <div className={`d-flex justify-content-between align-items-center`}>
             <div>
-              <TextAttesa minuti={tempoStimato} />
+              <div>Hai {fila} persone davanti</div>
+              {tempoStimato > 0 && (
+                <div>
+                  <TextAttesa minuti={tempoStimato} />
+                </div>
+              )}
             </div>
-          )}
+            <div className="d-flex justify-content-end align-items-end text-muted">
+              <h2>
+                Stiamo per servire il numero{' '}
+                <span className={`${styles['text-lg']} font-weight-bold`}>
+                  {next}
+                </span>
+              </h2>
+            </div>
+          </div>
         </div>
       </div>
     </div>
